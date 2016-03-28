@@ -1,11 +1,11 @@
 package ui;
 
+import controller.Controller;
+
 import javax.swing.*;
 
 
 public class Main {
-
-
 
     public static void main(String[] args) {
         System.out.println("Starting PID simulator");

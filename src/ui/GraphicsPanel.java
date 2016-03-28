@@ -13,7 +13,7 @@ public class GraphicsPanel extends JPanel implements Runnable {
     private BufferedImage buffer;
     private boolean running = true;
 
-    int SLEEP_TIME = 1;
+    int intervall = 1;
 
     private int w, h = 0;
     private   int gap = 3;
@@ -23,10 +23,11 @@ public class GraphicsPanel extends JPanel implements Runnable {
     public GraphicsPanel() {
         this.controller = Controller.getInstance();
 
-        setSize(300, 300);
-        Dimension d = getSize();
+        Dimension d = controller.getScreenSize();
         w = d.width;
         h = d.height;
+
+        this.setSize(new Dimension(w, h / 2));
         buffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
     }
 
@@ -54,12 +55,16 @@ public class GraphicsPanel extends JPanel implements Runnable {
             try {
 
                 this.repaint();
-                Thread.sleep(SLEEP_TIME);
+                Thread.sleep(intervall);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    public void setIntervall(int intervall) {
+        this.intervall = intervall;
     }
 }

@@ -6,11 +6,13 @@ import source.HeatSource;
 import source.Source;
 import ui.MainFrame;
 
+import java.awt.*;
+
 
 public class Controller {
 
     private MainFrame mainFrame;
-
+    private Dimension screenSize;
     private static Controller instance = null;
     private Source source;
     private PIDController pidController;
@@ -18,6 +20,8 @@ public class Controller {
 
 
     protected Controller() {
+
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         pidController = new MyPID();
         source = new HeatSource();
@@ -35,7 +39,7 @@ public class Controller {
         return instance;
     }
 
-
-
-
+    public Dimension getScreenSize() {
+        return screenSize;
+    }
 }
