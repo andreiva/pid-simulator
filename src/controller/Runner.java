@@ -11,8 +11,6 @@ public class Runner extends Thread {
     public Runner(String name, Source source, PIDController pidController) {
         super(name);
         this.source = source;
-
-
         this.pidController = pidController;
     }
 
@@ -28,6 +26,7 @@ public class Runner extends Thread {
     }
 
     public void startStuff() {
-        source.run();
+        new Thread(source).start();
+        new Thread(pidController).start();
     }
 }

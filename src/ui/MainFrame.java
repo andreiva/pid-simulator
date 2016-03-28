@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
 
+    private Controller controller;
     private JPanel controlPanel = new JPanel();
     private GraphicsPanel graphicsPanel;
     private MyPIDControlPanel pidControlPanel;
@@ -17,14 +18,17 @@ public class MainFrame extends JFrame {
     public MainFrame() throws HeadlessException {
         super("PID Simulator");
 
-        this.setSize(Controller.getInstance().getScreenSize());
+        controller = Controller.getInstance();
+
+        this.setSize(controller.getScreenSize());
         this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         init();
 
         this.setVisible(true);
-        graphicsPanel.run();
+        controller.getRunner().startStuff();
+        new Thread(graphicsPanel).start();
     }
 
     private void init() {

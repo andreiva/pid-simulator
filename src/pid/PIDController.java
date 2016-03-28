@@ -1,7 +1,7 @@
 package pid;
 
 
-public interface PIDController {
+public interface PIDController extends Runnable {
 
     // TODO add abstract class
 
@@ -13,6 +13,12 @@ public interface PIDController {
 
     void setIntervall(int intervall);
 
-    double step(double value);
+    void step();
+
+    public double getValue();
+
+    public double getOld();
+
+    public double getSetPoint();
 
 }

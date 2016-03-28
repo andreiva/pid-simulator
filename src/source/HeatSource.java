@@ -4,9 +4,10 @@ package source;
 public class HeatSource implements Source {
 
     private boolean running = true;
-    private int intervall = 5;
-    private int currentValue = 0;
-    private double delta = 1;
+    private int intervall =50;
+    private double currentValue = 20;
+    private double old = 10;
+    private double delta = 0.5;
 
     public double getDelta() {
         return delta;
@@ -18,8 +19,8 @@ public class HeatSource implements Source {
 
     @Override
     public void step() {
+        old = currentValue;
         currentValue += delta;
-
     }
 
     @Override
@@ -27,6 +28,10 @@ public class HeatSource implements Source {
         return currentValue;
     }
 
+    @Override
+    public double getOld() {
+        return old;
+    }
 
     @Override
     public void add(double value) {

@@ -7,6 +7,9 @@ public interface Source extends Runnable {
 
     public double getValue();
 
+    public double getOld();
+
+
     void add(double value);
 
     void setIntervall(int intervall);

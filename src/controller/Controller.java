@@ -27,9 +27,6 @@ public class Controller {
         source = new HeatSource();
         runner = new Runner("Main runner", source, pidController);
 
-
-       // runner.start();
-
     }
 
     public static Controller getInstance() {
@@ -41,5 +38,17 @@ public class Controller {
 
     public Dimension getScreenSize() {
         return screenSize;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+
+    public PIDController getPidController() {
+        return pidController;
+    }
+
+    public Runner getRunner() {
+        return runner;
     }
 }
