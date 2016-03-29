@@ -76,7 +76,6 @@ public class MyPID implements PIDController {
     public double calculate() {
 
         double output = kp * (error) + ki * (integratedValue) - kd * (derivatedValue);
-        System.out.println("Output "+ output);
         return output;
     }
 

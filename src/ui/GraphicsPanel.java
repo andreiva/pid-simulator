@@ -30,7 +30,8 @@ public class GraphicsPanel extends JPanel implements Runnable {
         source = controller.getSource();
         pidController = controller.getPidController();
 
-        Dimension d = controller.getScreenSize();
+       Dimension d = controller.getScreenSize();
+        //imension d = this.getPreferredSize();
         w = d.width;
         h = d.height;
 
