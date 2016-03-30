@@ -1,7 +1,5 @@
 package ui;
 
-import controller.Controller;
-
 import javax.swing.*;
 
 

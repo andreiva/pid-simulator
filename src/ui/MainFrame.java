@@ -3,8 +3,6 @@ package ui;
 import controller.Controller;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 
@@ -40,7 +38,7 @@ public class MainFrame extends JFrame {
     private void init() {
 
         Dimension d = new Dimension(Controller.getInstance().getScreenSize().width,
-                Controller.getInstance().getScreenSize().height / 2);
+                Controller.getInstance().getScreenSize().height / 2 - 20);
 
         GridLayout gridLayout = new GridLayout(2, 0);
         frame.getContentPane().setLayout(gridLayout);

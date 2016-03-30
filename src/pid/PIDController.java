@@ -21,4 +21,23 @@ public interface PIDController extends Runnable {
 
     public double getSetPoint();
 
+    void setKp(double kp);
+
+    void setKi(double ki);
+
+    void setKd(double kd);
+
+    double getKp();
+
+    double getKi();
+
+    double getKd();
+
+    int getIntervall();
+
+    void setSetPoint(double setPoint);
+
+    int getiTime();
+
+    abstract void setiTime(int iTime);
 }

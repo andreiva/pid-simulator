@@ -130,4 +130,56 @@ public class MyPID implements PIDController {
     public double getSetPoint() {
         return setPoint;
     }
+
+    @Override
+    public void setKd(double kd) {
+        this.kd = kd;
+    }
+
+    @Override
+    public void setKi(double ki) {
+        this.ki = ki;
+    }
+
+    @Override
+    public void setKp(double kp) {
+        this.kp = kp;
+    }
+
+    @Override
+    public double getKp() {
+        return kp;
+    }
+
+    @Override
+    public double getKi() {
+        return ki;
+    }
+
+    @Override
+    public double getKd() {
+        return kd;
+    }
+
+    @Override
+    public int getIntervall() {
+        return intervall;
+    }
+
+    @Override
+    public void setSetPoint(double setPoint) {
+        this.setPoint = setPoint;
+    }
+
+    @Override
+    public int getiTime() {
+        return iTime;
+    }
+
+    @Override
+    public void setiTime(int iTime) {
+        this.iTime = iTime;
+    }
+
+
 }
