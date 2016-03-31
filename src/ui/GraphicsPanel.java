@@ -24,6 +24,8 @@ public class GraphicsPanel extends JPanel implements Runnable {
     private int w, h = 0;
     private int X, Y;
 
+    static final int MAX = 100;
+    private double que[] = new double[MAX];
 
     public GraphicsPanel() {
         this.controller = Controller.getInstance();
@@ -77,10 +79,16 @@ public class GraphicsPanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
+
         while(running) {
             try {
 
-                source.add(pidController.getValue() * 0.001);
+                que[0] = pidController.getValue() * 0.001;
+                for(int i = 1; i < MAX; i++) {
+                    que[MAX-i] = que[MAX-i -1];
+                }
+
+                source.add(que[MAX-1]);
                 this.repaint();
 
                 Thread.sleep(intervall);
