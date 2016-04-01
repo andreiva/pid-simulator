@@ -81,10 +81,12 @@ public class MyPID implements PIDController {
 
     public void step() {
 
-        measuredValue = Controller.getInstance().getSource().getValue();
+//        measuredValue = Controller.getInstance().getSource().getValue();
+        measuredValue = Controller.getInstance().getSystemDelay().peek();
+        Controller.getInstance().getSystemDelay().step();
+
         old = currentValue;
 
-        // samples = filter.filter();
         error = getError();
         advanceBuffer();
         integratedValue = integrate();

@@ -19,7 +19,6 @@ public class Main {
             JOptionPane.showMessageDialog(null, "Couldn't set look & feel: Nimbus");
         }
 
-
         new MainFrame();
 
 

@@ -40,4 +40,6 @@ public interface PIDController extends Runnable {
     int getiTime();
 
     abstract void setiTime(int iTime);
+
+    double getError();
 }

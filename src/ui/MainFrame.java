@@ -13,6 +13,7 @@ public class MainFrame extends JFrame {
     private GraphicsPanel graphicsPanel;
     private MyPIDControlPanel pidControlPanel;
     private HeatSourceControlPanel heatSourceControlPanel;
+    private SystemControlPanel systemControlPanel;
     private JTabbedPane tabbedPane;
 
     JFrame frame;
@@ -58,14 +59,15 @@ public class MainFrame extends JFrame {
         pidControlPanel.setPreferredSize(d);
         heatSourceControlPanel = new HeatSourceControlPanel();
         heatSourceControlPanel.setPreferredSize(d);
-
+        systemControlPanel = new SystemControlPanel();
+        systemControlPanel.setPreferredSize(d);
 
         tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);
        //tabbedPane.setPreferredSize(d);
 
-
         tabbedPane.add("PID", pidControlPanel);
         tabbedPane.add("Heat source", heatSourceControlPanel);
+        tabbedPane.add("System", systemControlPanel);
 
         pidControlPanel.setPreferredSize(d);
         tabbedPane.setPreferredSize(d);

@@ -1,7 +1,6 @@
 package controller;
 
-import pid.MyPID;
-import pid.PIDController;
+import pid.*;
 import source.HeatSource;
 import source.Source;
 import ui.MainFrame;
@@ -16,17 +15,35 @@ public class Controller {
     private static Controller instance = null;
     private Source source;
     private PIDController pidController;
+    private Delay actuatorDelay;
+    private Delay systemDelay;
     private Runner runner;
 
 
     protected Controller() {
 
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] gs = ge.getScreenDevices();
+        DisplayMode dm;
+        if(gs.length > 0)
+            dm = gs[1].getDisplayMode();
+        else
+            dm = gs[0].getDisplayMode();
+        screenSize = new Dimension(dm.getWidth(), dm.getHeight());
 
         pidController = new MyPID();
         source = new HeatSource();
+        actuatorDelay = new SimpleDelay();
+        actuatorDelay.resize(Constants.POWER_OUTPUT_DELAY);
+        systemDelay = new ConductionDelay();
+        systemDelay .resize(5);
+
         runner = new Runner("Main runner", source, pidController);
 
+    }
+
+    public Delay getActuatorDelay() {
+        return actuatorDelay;
     }
 
     public static Controller getInstance() {
@@ -50,5 +67,9 @@ public class Controller {
 
     public Runner getRunner() {
         return runner;
+    }
+
+    public Delay getSystemDelay() {
+        return systemDelay;
     }
 }

@@ -1,5 +1,6 @@
 package ui;
 
+import controller.Constants;
 import controller.Controller;
 import pid.PIDController;
 import source.Source;
@@ -24,7 +25,7 @@ public class GraphicsPanel extends JPanel implements Runnable {
     private int w, h = 0;
     private int X, Y;
 
-    static final int MAX = 100;
+    static final int MAX = Constants.POWER_OUTPUT_DELAY;
     private double que[] = new double[MAX];
 
     public GraphicsPanel() {
@@ -32,7 +33,7 @@ public class GraphicsPanel extends JPanel implements Runnable {
         source = controller.getSource();
         pidController = controller.getPidController();
 
-       Dimension d = controller.getScreenSize();
+        Dimension d = controller.getScreenSize();
         //imension d = this.getPreferredSize();
         w = d.width;
         h = d.height;
@@ -66,11 +67,17 @@ public class GraphicsPanel extends JPanel implements Runnable {
         g.drawLine(0, Y - (int)pidController.getSetPoint(), w, Y - (int)pidController.getSetPoint());
 
 
+        // temperature
         g.setColor(Color.red);
+//        g.drawLine(step-1, Y - (int)source.getOld(), step, Y - (int)controller.getSystemDelay().peek());
         g.drawLine(step-1, Y - (int)source.getOld(), step, Y - (int)source.getValue());
 
+        // power
         g.setColor(Color.green);
         g.drawLine(step-1, Y + (int)pidController.getOld(), step, Y + (int)pidController.getValue());
+
+//        g.setColor(Color.CYAN);
+//        g.drawLine(step-1, Y + (int)controller.getActuatorDelay().peek(), step, Y + (int)controller.getActuatorDelay().peek());
 
 
         screengc.drawImage(buffer, 0, 0, null);
@@ -83,14 +90,14 @@ public class GraphicsPanel extends JPanel implements Runnable {
         while(running) {
             try {
 
-                que[0] = pidController.getValue() * 0.001;
-                for(int i = 1; i < MAX; i++) {
-                    que[MAX-i] = que[MAX-i -1];
-                }
+                Double power = pidController.getValue() * 0.001;
+                controller.getActuatorDelay().put(power);
 
-                source.add(que[MAX-1]);
+                source.add(pidController.getValue() * 0.001);
+                source.add(controller.getActuatorDelay().get());
+                controller.getSystemDelay().put(source.getValue());
+
                 this.repaint();
-
                 Thread.sleep(intervall);
 
             } catch (InterruptedException e) {
