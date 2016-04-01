@@ -79,7 +79,6 @@ public class GraphicsPanel extends JPanel implements Runnable {
         g.drawLine(step-1, Y + (int)pidController.getOld(), step, Y + (int)pidController.getValue());
 
 
-
         g.setColor(Color.black);
         g.fillRect(0, 0, 500, 180);
 

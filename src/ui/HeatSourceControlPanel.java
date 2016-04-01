@@ -18,7 +18,7 @@ public class HeatSourceControlPanel extends JPanel {
 
     public HeatSourceControlPanel() {
 
-        BoxLayout layout = new BoxLayout(this, BoxLayout.LINE_AXIS);
+        BoxLayout layout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         this.setLayout(layout);
 
         JButton buttonAdd25 = new JButton("+25");
@@ -54,11 +54,11 @@ public class HeatSourceControlPanel extends JPanel {
         });
 
 
+        this.add(getFilterPanel());
         this.add(buttonAdd25);
         this.add(buttonAdd10);
         this.add(buttonMinus10);
         this.add(buttonMinus25);
-        this.add(getFilterPanel());
     }
 
 
