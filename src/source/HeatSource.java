@@ -1,6 +1,8 @@
 package source;
 
 
+import pid.Noise;
+
 public class HeatSource implements Source {
 
     private boolean running = true;
@@ -8,6 +10,11 @@ public class HeatSource implements Source {
     private double currentValue = 20;
     private double old = 10;
     private double delta = 0.5;
+    private Noise noise;
+
+    public HeatSource() {
+        noise = new Noise();
+    }
 
     public double getDelta() {
         return delta;
@@ -25,7 +32,7 @@ public class HeatSource implements Source {
 
     @Override
     public double getValue() {
-        return currentValue;
+        return currentValue + noise.get();
     }
 
     @Override
