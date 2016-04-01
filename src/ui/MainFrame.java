@@ -9,7 +9,6 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     private Controller controller;
-    private JPanel controlPanel = new JPanel();
     private GraphicsPanel graphicsPanel;
     private MyPIDControlPanel pidControlPanel;
     private HeatSourceControlPanel heatSourceControlPanel;
@@ -30,7 +29,6 @@ public class MainFrame extends JFrame {
         init();
 
         this.pack();
-       // this.setLocationRelativeTo(null);
         this.setVisible(true);
         controller.getRunner().startStuff();
          new Thread(graphicsPanel).start();
@@ -47,10 +45,6 @@ public class MainFrame extends JFrame {
         //BoxLayout boxLayout = new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS);
         graphicsPanel = new GraphicsPanel();
         graphicsPanel.setSize(d);
-
-//        GridLayout gridLayout = new GridLayout(1, 2);
-//        controlPanel.setLayout(gridLayout);
-//        this.add(controlPanel);
 
         JPanel dummy = new JPanel();
         dummy.setSize(d);
@@ -75,32 +69,6 @@ public class MainFrame extends JFrame {
         dummy.add(tabbedPane);
         this.add(dummy);
         this.add(graphicsPanel);
-
-//
-//        int maxW = 0;
-//        int maxH = 0;
-//
-//        final Dimension originalTabsDim = tabbedPane.getPreferredSize();
-//
-//        tabbedPane.addChangeListener(new ChangeListener() {
-//
-//            @Override
-//            public void stateChanged(ChangeEvent e) {
-//
-//                Component p = ((JTabbedPane) e.getSource()).getSelectedComponent();
-//                Dimension panelDim = p.getPreferredSize();
-//
-//                Dimension nd = new Dimension(
-//                        originalTabsDim.width - (maxW - panelDim.width),
-//                        originalTabsDim.height - (maxH - panelDim.height));
-//
-//                tabbedPane.setPreferredSize(nd);
-//
-//                frame.pack();
-//            }
-//
-//        });
-
 
     }
 }

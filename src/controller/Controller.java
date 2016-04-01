@@ -36,7 +36,7 @@ public class Controller {
         actuatorDelay = new SimpleDelay();
         actuatorDelay.resize(Constants.POWER_OUTPUT_DELAY);
         systemDelay = new ConductionDelay();
-        systemDelay .resize(5);
+        systemDelay .resize(Constants.SYSTEM_OUTPUT_DELAY);
 
         runner = new Runner("Main runner", source, pidController);
 

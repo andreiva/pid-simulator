@@ -18,8 +18,8 @@ public class MyPID implements PIDController {
     private double integratedValue = 0;
     private double derivatedValue = 0;
 
-    private double kp = 25;
-    private double ki = 0.25;
+    private double kp = 15;
+    private double ki = 0.2;
     private double kd = 0.1;
 
     private int iTime = 20;

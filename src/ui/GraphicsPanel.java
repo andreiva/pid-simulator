@@ -18,7 +18,6 @@ public class GraphicsPanel extends JPanel implements Runnable {
     private BufferedImage buffer;
     private boolean running = true;
 
-
     int intervall = 5;
     int step = 0;
 
@@ -60,25 +59,24 @@ public class GraphicsPanel extends JPanel implements Runnable {
 
         g.setColor(Color.blue);
 
+
         g.drawLine(0, Y, w, Y); // X-axis
         g.drawLine(X, 0, X, h); // Y-axis
 
+        // Set point
         g.setColor(Color.gray);
         g.drawLine(0, Y - (int)pidController.getSetPoint(), w, Y - (int)pidController.getSetPoint());
 
-
         // temperature
         g.setColor(Color.red);
-//        g.drawLine(step-1, Y - (int)source.getOld(), step, Y - (int)controller.getSystemDelay().peek());
         g.drawLine(step-1, Y - (int)source.getOld(), step, Y - (int)source.getValue());
+
+//        g.setColor(Color.cyan);
+//        g.drawLine(step-1, Y - (int)source.getOld(), step, Y - (int)controller.getSystemDelay().peek());
 
         // power
         g.setColor(Color.green);
         g.drawLine(step-1, Y + (int)pidController.getOld(), step, Y + (int)pidController.getValue());
-
-//        g.setColor(Color.CYAN);
-//        g.drawLine(step-1, Y + (int)controller.getActuatorDelay().peek(), step, Y + (int)controller.getActuatorDelay().peek());
-
 
         screengc.drawImage(buffer, 0, 0, null);
     }
