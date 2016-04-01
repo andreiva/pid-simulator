@@ -32,7 +32,11 @@ public class HeatSource implements Source {
 
     @Override
     public double getValue() {
-        return currentValue + noise.get();
+
+        if(noise.isEnabled())
+            return currentValue + noise.get();
+        else
+            return currentValue;
     }
 
     @Override
@@ -62,5 +66,10 @@ public class HeatSource implements Source {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public Noise getNoise() {
+        return noise;
     }
 }

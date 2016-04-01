@@ -3,14 +3,14 @@ package filter;
 public class HighPassFilter extends AbstractFilter {
 
 
-    private double CUTOFF = 10;
+    private double cutoff = 10;
     private double SAMPLE_RATE = 1000;
     private double recordedSamples[];
 
 
     public double[] step(double recordedSamples[], int numSamples) {
 
-        double RC = 1.0/(CUTOFF*2*3.14);
+        double RC = 1.0/(cutoff*2*3.14);
         double dt = 1.0/SAMPLE_RATE;
         double alpha = RC/(RC + dt);
         double filteredArray[] = new double[numSamples];
@@ -23,7 +23,12 @@ public class HighPassFilter extends AbstractFilter {
     }
 
     @Override
-    public void run() {
+    public double getCutoff() {
+        return cutoff;
+    }
+
+    @Override
+    public void setCutoff(double cutoff) {
 
     }
 }

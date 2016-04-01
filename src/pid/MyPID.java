@@ -30,7 +30,7 @@ public class MyPID implements PIDController {
     private List<Double> samples =  new ArrayList<Double>();
     private List<Double> samplesUnfiltered =  new ArrayList<Double>();
     private Filter filter;
-
+    private boolean enableFilter = true;
 
     public MyPID() {
 
@@ -99,25 +99,19 @@ public class MyPID implements PIDController {
         error = getError();
         advanceBuffer();
 
-        Double[] asd = samples.toArray(new Double[samples.size()]);
-        double[] qwe = new double[samples.size()];
+        if(enableFilter) {
+            Double[] asd = samples.toArray(new Double[samples.size()]);
+            double[] qwe = new double[samples.size()];
 
-        for(int i = 0; i< samples.size(); i++) {
-            qwe[i] = asd[i].doubleValue();
-//            System.out.print("["+ qwe[i] +"]");
+            for(int i = 0; i< samples.size(); i++) {
+                qwe[i] = asd[i].doubleValue();
+            }
+            qwe = filter.step(qwe, samples.size());
+
+            for(int i = 0; i< samples.size(); i++) {
+                samples.set(i, qwe[i]);
+            }
         }
-        qwe = filter.step(qwe, samples.size());
-//        System.out.println("");
-
-
-        for(int i = 0; i< samples.size(); i++) {
-            samples.set(i, qwe[i]);
-//            System.out.print("["+ qwe[i] +"]");
-        }
-
-//        System.out.println("");
-//        System.out.println("------------------------------------------");
-
 
         integratedValue = integrate();
         derivatedValue = derivate();
@@ -216,5 +210,20 @@ public class MyPID implements PIDController {
     @Override
     public List<Double> getSamplesUnfiltered() {
         return samplesUnfiltered;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    @Override
+    public boolean isEnableFilter() {
+        return enableFilter;
+    }
+
+    @Override
+    public void setEnableFilter(boolean enableFilter) {
+        this.enableFilter = enableFilter;
     }
 }

@@ -1,6 +1,8 @@
 package pid;
 
 
+import filter.Filter;
+
 import java.util.List;
 
 public interface PIDController extends Runnable {
@@ -48,4 +50,10 @@ public interface PIDController extends Runnable {
     double getError();
 
     List<Double> getSamplesUnfiltered();
+
+    Filter getFilter();
+
+    boolean isEnableFilter();
+
+    void setEnableFilter(boolean enableFilter);
 }

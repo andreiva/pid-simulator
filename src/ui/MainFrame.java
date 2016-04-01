@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
 
     private Controller controller;
     private GraphicsPanel graphicsPanel;
-    private MyPIDControlPanel pidControlPanel;
+    private PIDControlPanel pidControlPanel;
     private HeatSourceControlPanel heatSourceControlPanel;
     private SystemControlPanel systemControlPanel;
     private JTabbedPane tabbedPane;
@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
         JPanel dummy = new JPanel();
         dummy.setSize(d);
 
-        pidControlPanel = new MyPIDControlPanel();
+        pidControlPanel = new PIDControlPanel();
         pidControlPanel.setPreferredSize(d);
         heatSourceControlPanel = new HeatSourceControlPanel();
         heatSourceControlPanel.setPreferredSize(d);

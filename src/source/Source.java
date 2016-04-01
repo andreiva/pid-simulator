@@ -1,6 +1,8 @@
 package source;
 
 
+import pid.Noise;
+
 public interface Source extends Runnable {
 
     public void step();
@@ -15,4 +17,5 @@ public interface Source extends Runnable {
     void setIntervall(int intervall);
 
 
+    Noise getNoise();
 }

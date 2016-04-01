@@ -13,7 +13,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 
-public class MyPIDControlPanel extends JPanel {
+public class PIDControlPanel extends JPanel {
 
     private JPanel factors;
 
@@ -35,9 +35,9 @@ public class MyPIDControlPanel extends JPanel {
 
     private Controller controller = Controller.getInstance();
 
-    public MyPIDControlPanel() {
+    public PIDControlPanel() {
 
-        GridLayout layout = new GridLayout(0, 2);
+        GridLayout layout = new GridLayout(1, 2);
         this.setLayout(layout);
 
         fieldP.addMouseWheelListener(new MouseWheelListener() {
@@ -124,8 +124,6 @@ public class MyPIDControlPanel extends JPanel {
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
 
-//        this.add(slider);
-
         factors.add(labelP);
         factors.add(fieldP);
         factors.add(labelI);
@@ -142,10 +140,6 @@ public class MyPIDControlPanel extends JPanel {
 
         factors.add(new JLabel("Setpoint"));
         factors.add(slider);
-//        factors.add(new JPanel());
-//        factors.add(new JPanel());
-
-
 
         SpringUtilities.makeCompactGrid(factors,
                 7, 2,   // rows, cols
@@ -153,7 +147,42 @@ public class MyPIDControlPanel extends JPanel {
                 3, 3); //xPad, yPad
 
         this.add(factors);
-        this.add(new JPanel());
+//        this.add(new JPanel());
+        this.add(getFilterPanel());
 
+    }
+
+    private JPanel getFilterPanel() {
+
+        JPanel panel = new JPanel(new SpringLayout());
+        panel.setBorder(BorderFactory.createTitledBorder("Filter"));
+
+        JLabel labelEnable = new JLabel("High pass filter");
+        JCheckBox checkBox = new JCheckBox();
+        checkBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.getPidController().setEnableFilter(checkBox.getModel().isSelected());
+            }
+        });
+
+        JLabel labelCutoff = new JLabel("Cutoff Hz");
+        JTextField fieldCutoff = new JTextField(controller.getPidController().getFilter().getCutoff() +"", 4);
+        fieldCutoff.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                double d = Double.parseDouble(fieldCutoff.getText());
+                controller.getPidController().getFilter().setCutoff(d);
+            }
+        });
+        panel.add(labelEnable);
+        panel.add(checkBox);
+        panel.add(labelCutoff);
+        panel.add(fieldCutoff);
+
+        SpringUtilities.makeCompactGrid(panel,
+                2, 2,   // rows, cols
+                3, 3,  //initX, initY
+                3, 3); //xPad, yPad
+
+        return panel;
     }
 }

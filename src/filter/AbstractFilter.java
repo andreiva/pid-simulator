@@ -1,7 +1,7 @@
 package filter;
 
 
-public abstract class AbstractFilter implements Filter, Runnable {
+public abstract class AbstractFilter implements Filter {
 
 
 }
