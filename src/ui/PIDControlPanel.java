@@ -2,6 +2,7 @@ package ui;
 
 import controller.Controller;
 import layout.SpringUtilities;
+import pid.MyPID;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -11,6 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.geom.Arc2D;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 
 
 public class PIDControlPanel extends JPanel {
@@ -34,27 +39,27 @@ public class PIDControlPanel extends JPanel {
     private JSlider slider;
 
     private Controller controller = Controller.getInstance();
+    DecimalFormat df = new DecimalFormat("####0.00");
 
     public PIDControlPanel() {
 
         GridLayout layout = new GridLayout(1, 2);
         this.setLayout(layout);
 
-        fieldP.addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                if (e.getWheelRotation() < 0) {
-                    double d = controller.getPidController().getKp();
-                    controller.getPidController().setKp(d+1);
-                    fieldP.setText((d+1) + "");
-                } else {
-                    double d = controller.getPidController().getKp();
-                    controller.getPidController().setKp(d-1);
-                    fieldP.setText((d-1) + "");
-                }
-            }
-        });
-
+//        fieldP.addMouseWheelListener(new MouseWheelListener() {
+//            @Override
+//            public void mouseWheelMoved(MouseWheelEvent e) {
+//                if (e.getWheelRotation() < 0) {
+//                    double d = controller.getPidController().getKp();
+//                    controller.getPidController().setKp(d+1);
+//                    fieldP.setText((d+1) + "");
+//                } else {
+//                    double d = controller.getPidController().getKp();
+//                    controller.getPidController().setKp(d-1);
+//                    fieldP.setText((d-1) + "");
+//                }
+//            }
+//        });
 
         fieldP.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -147,8 +152,15 @@ public class PIDControlPanel extends JPanel {
                 3, 3); //xPad, yPad
 
         this.add(factors);
-//        this.add(new JPanel());
         this.add(getFilterPanel());
+
+        addMouseWheelListener(fieldP, "setKp", double.class, 1);
+        addMouseWheelListener(fieldI, "setKi", double.class, 0.01);
+        addMouseWheelListener(fieldD, "setKd", double.class, 0.01);
+
+        addMouseWheelListener(fieldSetPoint, "setSetPoint", double.class, 1);
+        addMouseWheelListener(fieldTime, "setiTime", int.class, 1);
+        addMouseWheelListener(fieldLoopTime, "setIntervall", int.class, 1);
 
     }
 
@@ -184,5 +196,46 @@ public class PIDControlPanel extends JPanel {
                 3, 3); //xPad, yPad
 
         return panel;
+    }
+
+
+    private void addMouseWheelListener(JTextField field, String name, Class type, double step) {
+
+        try {
+            Class<?> c = Class.forName("pid.MyPID");
+            Method setter = c.getDeclaredMethod(name, type);
+
+            field.addMouseWheelListener(new MouseWheelListener() {
+                @Override
+                public void mouseWheelMoved(MouseWheelEvent e) {
+                    double d = Double.parseDouble(field.getText());
+
+                    if (e.getWheelRotation() < 0) {
+                        try {
+                            setter.invoke (controller.getPidController(), d + step);
+                            field.setText(df.format(d + step));
+                        } catch (IllegalAccessException e1) {
+                            e1.printStackTrace();
+                        } catch (InvocationTargetException e1) {
+                            e1.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            setter.invoke (controller.getPidController(), d - step);
+                            field.setText(df.format(d - step));
+                        } catch (IllegalAccessException e1) {
+                            e1.printStackTrace();
+                        } catch (InvocationTargetException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 }

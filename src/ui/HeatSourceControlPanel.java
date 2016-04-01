@@ -5,6 +5,8 @@ import controller.Controller;
 import layout.SpringUtilities;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,28 +15,50 @@ import java.util.Random;
 public class HeatSourceControlPanel extends JPanel {
 
     private Controller controller = Controller.getInstance();
-    private JButton buttonImpulse = new JButton("Impulse");
 
     public HeatSourceControlPanel() {
 
-//        GridLayout layout = new GridLayout(1, 2);
         BoxLayout layout = new BoxLayout(this, BoxLayout.LINE_AXIS);
         this.setLayout(layout);
 
-
-        Random r = new Random();
-
-        buttonImpulse.addActionListener(new ActionListener() {
+        JButton buttonAdd25 = new JButton("+25");
+        buttonAdd25.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Controller.getInstance().getSource().add(r.nextDouble() * 10);
+                controller.getSource().add(25);
+
+            }
+        });
+
+       JButton buttonAdd10 = new JButton("+10");
+        buttonAdd10.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.getSource().add(10);
+
+            }
+        });
+
+       JButton buttonMinus10 = new JButton("-10");
+        buttonMinus10.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.getSource().add(-10);
+
+            }
+        });
+
+       JButton buttonMinus25 = new JButton("-25");
+        buttonMinus25.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controller.getSource().add(-25);
 
             }
         });
 
 
-        this.add(buttonImpulse);
+        this.add(buttonAdd25);
+        this.add(buttonAdd10);
+        this.add(buttonMinus10);
+        this.add(buttonMinus25);
         this.add(getFilterPanel());
-
     }
 
 
@@ -53,29 +77,40 @@ public class HeatSourceControlPanel extends JPanel {
         });
 
         JLabel labelMagnitude = new JLabel("Magnitude");
-        JTextField fieldMagnitude = new JTextField(controller.getSource().getNoise().getMagnitude() +"", 4);
-        fieldMagnitude.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int i = Integer.parseInt(fieldMagnitude.getText());
+        JSlider sliderMagnitude = new JSlider(JSlider.HORIZONTAL, 0, 100, controller.getSource().getNoise().getMagnitude());
+        sliderMagnitude.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent event) {
+                int i = sliderMagnitude.getValue();
                 controller.getSource().getNoise().setMagnitude(i);
             }
         });
 
+        sliderMagnitude.setMajorTickSpacing(10);
+        sliderMagnitude.setMinorTickSpacing(1);
+        sliderMagnitude.setPaintTicks(true);
+        sliderMagnitude.setPaintLabels(true);
+
         JLabel labelProbability = new JLabel("Probability");
-        JTextField fieldProbability = new JTextField(controller.getSource().getNoise().getProbability() +"", 4);
-        fieldProbability.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int i = Integer.parseInt(fieldProbability.getText());
+        JSlider sliderProbability = new JSlider(JSlider.HORIZONTAL, 0, 100, controller.getSource().getNoise().getProbability());
+        sliderProbability.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent event) {
+                int i = sliderProbability.getValue();
                 controller.getSource().getNoise().setProbability(i);
             }
         });
 
+        sliderProbability.setMajorTickSpacing(10);
+        sliderProbability.setMinorTickSpacing(1);
+        sliderProbability.setPaintTicks(true);
+        sliderProbability.setPaintLabels(true);
+
+
         panel.add(labelEnable);
         panel.add(checkBox);
         panel.add(labelMagnitude);
-        panel.add(fieldMagnitude);
+        panel.add(sliderMagnitude);
         panel.add(labelProbability);
-        panel.add(fieldProbability);
+        panel.add(sliderProbability);
 
         SpringUtilities.makeCompactGrid(panel,
                 3, 2,   // rows, cols
