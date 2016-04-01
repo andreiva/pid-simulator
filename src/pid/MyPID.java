@@ -1,6 +1,8 @@
 package pid;
 
 import controller.Controller;
+import filter.Filter;
+import filter.HighPassFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,16 +28,17 @@ public class MyPID implements PIDController {
     private int step = 0;
 
     private List<Double> samples =  new ArrayList<Double>();
-
-    // maybe later
-    // private Queue<Double> fifo = new LinkedList<Double>();
+    private List<Double> samplesUnfiltered =  new ArrayList<Double>();
+    private Filter filter;
 
 
     public MyPID() {
 
         for(int i = 0; i< iTime; i++) {
             samples.add(new Double(1));
+            samplesUnfiltered.add(new Double(1));
         }
+        filter = new HighPassFilter();
 
     }
 
@@ -53,6 +56,7 @@ public class MyPID implements PIDController {
     private void advanceBuffer() {
 
         samples.set(step, error);
+        samplesUnfiltered.set(step, error);
 
         step++;
         if(step >= iTime)
@@ -79,6 +83,11 @@ public class MyPID implements PIDController {
         return output;
     }
 
+    @Override
+    public List<Double> getSamples() {
+        return samples;
+    }
+
     public void step() {
 
 //        measuredValue = Controller.getInstance().getSource().getValue();
@@ -89,6 +98,27 @@ public class MyPID implements PIDController {
 
         error = getError();
         advanceBuffer();
+
+        Double[] asd = samples.toArray(new Double[samples.size()]);
+        double[] qwe = new double[samples.size()];
+
+        for(int i = 0; i< samples.size(); i++) {
+            qwe[i] = asd[i].doubleValue();
+//            System.out.print("["+ qwe[i] +"]");
+        }
+        qwe = filter.step(qwe, samples.size());
+//        System.out.println("");
+
+
+        for(int i = 0; i< samples.size(); i++) {
+            samples.set(i, qwe[i]);
+//            System.out.print("["+ qwe[i] +"]");
+        }
+
+//        System.out.println("");
+//        System.out.println("------------------------------------------");
+
+
         integratedValue = integrate();
         derivatedValue = derivate();
         currentValue = calculate();
@@ -183,5 +213,8 @@ public class MyPID implements PIDController {
         this.iTime = iTime;
     }
 
-
+    @Override
+    public List<Double> getSamplesUnfiltered() {
+        return samplesUnfiltered;
+    }
 }

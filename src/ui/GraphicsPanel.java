@@ -78,6 +78,21 @@ public class GraphicsPanel extends JPanel implements Runnable {
         g.setColor(Color.green);
         g.drawLine(step-1, Y + (int)pidController.getOld(), step, Y + (int)pidController.getValue());
 
+
+
+        g.setColor(Color.black);
+        g.fillRect(0, 0, 500, 180);
+
+        g.setColor(Color.cyan);
+        for (int i = 1; i<pidController.getSamples().size(); i++) {
+            g.drawLine(10 + i*3, 50, 10 + i*3, 50 + (int)pidController.getSamples().get(i).intValue() * 10);
+        }
+
+        g.setColor(Color.blue);
+        for (int i = 1; i<pidController.getSamples().size(); i++) {
+            g.drawLine(150 + i*3, 50, 150 + i*3, 50 + (int)pidController.getSamplesUnfiltered().get(i).intValue() * 10);
+        }
+
         screengc.drawImage(buffer, 0, 0, null);
     }
 

@@ -5,7 +5,7 @@ import java.util.Random;
 public class Noise {
 
     private Random r;
-    private int magnitude = 20;
+    private int magnitude = 50;
 
     public Noise() {
 

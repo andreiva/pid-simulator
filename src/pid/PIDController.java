@@ -1,6 +1,8 @@
 package pid;
 
 
+import java.util.List;
+
 public interface PIDController extends Runnable {
 
     // TODO add abstract class
@@ -12,6 +14,8 @@ public interface PIDController extends Runnable {
     double calculate();
 
     void setIntervall(int intervall);
+
+    List<Double> getSamples();
 
     void step();
 
@@ -42,4 +46,6 @@ public interface PIDController extends Runnable {
     abstract void setiTime(int iTime);
 
     double getError();
+
+    List<Double> getSamplesUnfiltered();
 }
