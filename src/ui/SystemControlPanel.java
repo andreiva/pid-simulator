@@ -16,8 +16,8 @@ public class SystemControlPanel extends JPanel {
 
     private JPanel factors;
 
-    private JLabel labelPower = new JLabel("Power output");
-    private JLabel labelSystem = new JLabel("System");
+    private JLabel labelPower = new JLabel("Output delay");
+    private JLabel labelSystem = new JLabel("System delay");
 
     private JTextField fieldPower = new JTextField(4);
     private JTextField fieldSystem = new JTextField(4);
@@ -26,8 +26,6 @@ public class SystemControlPanel extends JPanel {
 
     public SystemControlPanel() {
 
-//        GridLayout layout = new GridLayout(0, 2);
-//        this.setLayout(layout);
         this.setLayout(new FlowLayout(0, 0, FlowLayout.LEADING));
 
         fieldPower.addMouseWheelListener(new MouseWheelListener() {
@@ -76,14 +74,13 @@ public class SystemControlPanel extends JPanel {
         fieldPower.setText(Constants.POWER_OUTPUT_DELAY +"");
         fieldSystem.setText(Constants.SYSTEM_OUTPUT_DELAY +"");
 
-
         fieldPower.setHorizontalAlignment(SwingConstants.RIGHT);
         fieldSystem.setHorizontalAlignment(SwingConstants.RIGHT);
 
-
         factors = new JPanel(new SpringLayout());
-        factors.setBorder(BorderFactory.createTitledBorder("Delays"));
+        factors.setBorder(BorderFactory.createTitledBorder("Delay"));
 
+        fieldSystem.setToolTipText(Constants.SYSTEM_DELAY);
 
         factors.add(labelPower);
         factors.add(fieldPower);

@@ -36,7 +36,7 @@ public class GraphicsPanel extends JPanel implements Runnable {
         w = d.width;
         h = d.height;
 
-        this.setSize(new Dimension(w, h / 2));
+        this.setSize(new Dimension(w, h / 3 * 2));
         X = this.getWidth() / 2;
         Y = this.getHeight() / 2;
         buffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -55,19 +55,19 @@ public class GraphicsPanel extends JPanel implements Runnable {
         }
 
 
-        g.setColor(Color.white);
-
-
+        g.setColor(Color.blue);
         g.drawLine(0, Y, w, Y); // X-axis
         g.drawLine(X, 0, X, h); // Y-axis
 
-        // Set point
-        g.setColor(Color.gray);
-        g.drawLine(0, Y - (int)pidController.getSetPoint(), w, Y - (int)pidController.getSetPoint());
 
         // temperature
         g.setColor(Color.red);
         g.drawLine(step-1, Y - (int)source.getOld(), step, Y - (int)source.getValue());
+
+        // Set point
+        g.setColor(Color.yellow);
+        g.drawLine(0, Y - (int)pidController.getSetPoint(), w, Y - (int)pidController.getSetPoint());
+
 
 //        g.setColor(Color.cyan);
 //        g.drawLine(step-1, Y - (int)source.getOld(), step, Y - (int)controller.getSystemDelay().peek());
@@ -76,25 +76,19 @@ public class GraphicsPanel extends JPanel implements Runnable {
         g.setColor(Color.green);
         g.drawLine(step-1, Y + (int)pidController.getOld(), step, Y + (int)pidController.getValue());
 
-//        if(step % 50 == 0) {
+
+//        g.setColor(Color.black);
+//        g.fillRect(0, 0, 500, 180);
 //
-//            g.setColor(Color.green);
-//            g.drawLine(step-1, Y + (int)pidController.getOld(), step + 50, Y + (int)pidController.getValue());
-//
+//        g.setColor(Color.cyan);
+//        for (int i = 1; i<pidController.getSamples().size(); i++) {
+//            g.drawLine(10 + i*3, 50, 10 + i*3, 50 + (int)pidController.getSamples().get(i).intValue() * 10);
 //        }
-
-        g.setColor(Color.black);
-        g.fillRect(0, 0, 500, 180);
-
-        g.setColor(Color.cyan);
-        for (int i = 1; i<pidController.getSamples().size(); i++) {
-            g.drawLine(10 + i*3, 50, 10 + i*3, 50 + (int)pidController.getSamples().get(i).intValue() * 10);
-        }
-
-        g.setColor(Color.blue);
-        for (int i = 1; i<pidController.getSamples().size(); i++) {
-            g.drawLine(150 + i*3, 50, 150 + i*3, 50 + (int)pidController.getSamplesUnfiltered().get(i).intValue() * 10);
-        }
+//
+//        g.setColor(Color.blue);
+//        for (int i = 1; i<pidController.getSamples().size(); i++) {
+//            g.drawLine(150 + i*3, 50, 150 + i*3, 50 + (int)pidController.getSamplesUnfiltered().get(i).intValue() * 10);
+//        }
 
         screengc.drawImage(buffer, 0, 0, null);
     }

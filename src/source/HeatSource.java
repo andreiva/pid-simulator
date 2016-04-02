@@ -6,9 +6,9 @@ import pid.Noise;
 public class HeatSource implements Source {
 
     private boolean running = true;
-    private int intervall =50;
-    private double currentValue = 20;
-    private double old = 10;
+    private int intervall = 50;
+    private double currentValue = 100;
+    private double old = 20;
     private double delta = 0.5;
     private Noise noise;
 

@@ -10,19 +10,19 @@ import java.util.List;
 public class MyPID implements PIDController {
 
     private boolean running = true;
-    private int intervall = 50;
+    private int intervall = 6;
 
-    private double currentValue = 60;
-    private double measuredValue = 60;
+    private double currentValue = 100;
+    private double measuredValue = 50;
     private double old = 60;
-    private double setPoint = 10;
-    private double error = 10;
+    private double setPoint = 50;
+    private double error = 0;
     private double integratedValue = 0;
     private double derivatedValue = 0;
 
-    private double kp = 15;
-    private double ki = 0.2;
-    private double kd = 0.1;
+    private double kp = 1;
+    private double ki = 0.1;
+    private double kd = 0.8;
 
     private int iTime = 20;
     private int step = 0;

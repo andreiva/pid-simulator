@@ -36,16 +36,14 @@ public class PIDControlPanel extends JPanel {
     private JTextField fieldSetPoint = new JTextField(4);
     private JTextField fieldLoopTime = new JTextField(4);
 
-    private JSlider slider;
-
     private Controller controller = Controller.getInstance();
     DecimalFormat df = new DecimalFormat("####0.00");
 
     public PIDControlPanel() {
 
-//        FlowLayout layout = new GridLayout(1, 2);
-//        GridLayout layout = new GridLayout(1, 2);
-//        this.setLayout(layout);
+        fieldTime.setEnabled(false);
+        fieldLoopTime.setEnabled(false);
+
         this.setLayout(new FlowLayout(0, 0, FlowLayout.LEADING));
 
         fieldP.addActionListener(new ActionListener() {
@@ -85,8 +83,6 @@ public class PIDControlPanel extends JPanel {
             }
         });
 
-        fieldP.setPreferredSize( new Dimension( 200, 24 ) );
-
 
         fieldP.setText(controller.getPidController().getKp() +"");
         fieldI.setText(controller.getPidController().getKi() +"");
@@ -106,19 +102,6 @@ public class PIDControlPanel extends JPanel {
         factors = new JPanel(new SpringLayout());
         factors.setBorder(BorderFactory.createTitledBorder("PID factors"));
 
-        slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 25);
-        slider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent event) {
-                double d = slider.getValue();
-                controller.getPidController().setSetPoint(d);
-            }
-        });
-
-        slider.setMajorTickSpacing(10);
-        slider.setMinorTickSpacing(1);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-
         factors.add(labelP);
         factors.add(fieldP);
         factors.add(labelI);
@@ -133,11 +116,8 @@ public class PIDControlPanel extends JPanel {
         factors.add(labelSetPoint);
         factors.add(fieldSetPoint);
 
-        factors.add(new JLabel("Setpoint"));
-        factors.add(slider);
-
         SpringUtilities.makeCompactGrid(factors,
-                7, 2,   // rows, cols
+                6, 2,   // rows, cols
                 3, 3,  //initX, initY
                 3, 3); //xPad, yPad
 

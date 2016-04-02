@@ -36,17 +36,22 @@ public class MainFrame extends JFrame {
 
     private void init() {
 
-        Dimension d = new Dimension(Controller.getInstance().getScreenSize().width,
-                Controller.getInstance().getScreenSize().height / 2 - 20);
+        Dimension graph = new Dimension(Controller.getInstance().getScreenSize().width,
+                Controller.getInstance().getScreenSize().height / 3 * 2 - 20);
+        Dimension settings = new Dimension(Controller.getInstance().getScreenSize().width,
+                Controller.getInstance().getScreenSize().height / 3 - 20);
+
+        System.out.println("Dmension "+ graph);
+        System.out.println("Dmension "+ settings);
 
         GridLayout gridLayout = new GridLayout(2, 0);
         frame.getContentPane().setLayout(gridLayout);
 
         graphicsPanel = new GraphicsPanel();
-        graphicsPanel.setPreferredSize(d);
+        graphicsPanel.setPreferredSize(graph);
 
         pidControlPanel = new PIDControlPanel();
-        pidControlPanel.setPreferredSize(d);
+        pidControlPanel.setPreferredSize(settings);
 //        heatSourceControlPanel = new HeatSourceControlPanel();
 //        heatSourceControlPanel.setPreferredSize(d);
 //        systemControlPanel = new SystemControlPanel();
