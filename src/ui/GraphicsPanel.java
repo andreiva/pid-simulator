@@ -57,7 +57,7 @@ public class GraphicsPanel extends JPanel implements Runnable {
         }
 
 
-        g.setColor(Color.blue);
+        g.setColor(Color.white);
 
 
         g.drawLine(0, Y, w, Y); // X-axis

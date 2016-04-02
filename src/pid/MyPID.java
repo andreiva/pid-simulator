@@ -3,6 +3,7 @@ package pid;
 import controller.Controller;
 import filter.Filter;
 import filter.HighPassFilter;
+import filter.LowPassFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class MyPID implements PIDController {
             samples.add(new Double(1));
             samplesUnfiltered.add(new Double(1));
         }
-        filter = new HighPassFilter();
+        filter = new LowPassFilter();
 
     }
 

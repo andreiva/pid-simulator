@@ -25,7 +25,7 @@ public class Controller {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice[] gs = ge.getScreenDevices();
         DisplayMode dm;
-        if(gs.length > 0)
+        if(gs.length > 1)
             dm = gs[1].getDisplayMode();
         else
             dm = gs[0].getDisplayMode();

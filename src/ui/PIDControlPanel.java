@@ -45,6 +45,7 @@ public class PIDControlPanel extends JPanel {
 
         GridLayout layout = new GridLayout(1, 2);
         this.setLayout(layout);
+//        this.setLayout(new FlowLayout(0, 0, FlowLayout.LEADING));
 
         fieldP.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +83,9 @@ public class PIDControlPanel extends JPanel {
                 controller.getPidController().setSetPoint(d);
             }
         });
+
+        fieldP.setPreferredSize( new Dimension( 200, 24 ) );
+
 
         fieldP.setText(controller.getPidController().getKp() +"");
         fieldI.setText(controller.getPidController().getKi() +"");
@@ -136,8 +140,19 @@ public class PIDControlPanel extends JPanel {
                 3, 3,  //initX, initY
                 3, 3); //xPad, yPad
 
-        this.add(factors);
-        this.add(getFilterPanel());
+
+        JPanel wrapper1 = new JPanel();
+        JPanel wrapper2 = new JPanel();
+        wrapper1.setLayout(new FlowLayout(0, 0, FlowLayout.LEFT));
+        wrapper2.setLayout(new FlowLayout(0, 0, FlowLayout.TRAILING));
+
+        wrapper1.add(factors);
+        wrapper1.add(getFilterPanel());
+
+        this.add(wrapper1);
+        this.add(wrapper2);
+//        this.add(factors);
+//        this.add(getFilterPanel());
 
         Util.addMouseWheelListener(fieldP, "setKp", double.class, 1);
         Util.addMouseWheelListener(fieldI, "setKi", double.class, 0.01);
