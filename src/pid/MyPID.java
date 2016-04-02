@@ -2,7 +2,6 @@ package pid;
 
 import controller.Controller;
 import filter.Filter;
-import filter.HighPassFilter;
 import filter.LowPassFilter;
 
 import java.util.ArrayList;

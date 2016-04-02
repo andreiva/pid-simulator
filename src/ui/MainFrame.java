@@ -42,33 +42,21 @@ public class MainFrame extends JFrame {
         GridLayout gridLayout = new GridLayout(2, 0);
         frame.getContentPane().setLayout(gridLayout);
 
-        //BoxLayout boxLayout = new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS);
         graphicsPanel = new GraphicsPanel();
-        graphicsPanel.setSize(d);
-
-        JPanel dummy = new JPanel();
-        dummy.setSize(d);
+        graphicsPanel.setPreferredSize(d);
 
         pidControlPanel = new PIDControlPanel();
         pidControlPanel.setPreferredSize(d);
-        heatSourceControlPanel = new HeatSourceControlPanel();
-        heatSourceControlPanel.setPreferredSize(d);
-        systemControlPanel = new SystemControlPanel();
-        systemControlPanel.setPreferredSize(d);
+//        heatSourceControlPanel = new HeatSourceControlPanel();
+//        heatSourceControlPanel.setPreferredSize(d);
+//        systemControlPanel = new SystemControlPanel();
+//        systemControlPanel.setPreferredSize(d);
 
-        tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);
-       //tabbedPane.setPreferredSize(d);
+        JScrollPane scrollPane = new JScrollPane(pidControlPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//        scrollPane.add(pidControlPanel);
+//        scrollPane.add(graphicsPanel);
 
-        tabbedPane.add("PID", pidControlPanel);
-        tabbedPane.add("Heat source", heatSourceControlPanel);
-        tabbedPane.add("System", systemControlPanel);
-
-        pidControlPanel.setPreferredSize(d);
-        tabbedPane.setPreferredSize(d);
-
-        dummy.add(tabbedPane);
-        this.add(dummy);
+        this.add(scrollPane);
         this.add(graphicsPanel);
-
     }
 }

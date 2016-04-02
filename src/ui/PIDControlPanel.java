@@ -43,9 +43,10 @@ public class PIDControlPanel extends JPanel {
 
     public PIDControlPanel() {
 
-        GridLayout layout = new GridLayout(1, 2);
-        this.setLayout(layout);
-//        this.setLayout(new FlowLayout(0, 0, FlowLayout.LEADING));
+//        FlowLayout layout = new GridLayout(1, 2);
+//        GridLayout layout = new GridLayout(1, 2);
+//        this.setLayout(layout);
+        this.setLayout(new FlowLayout(0, 0, FlowLayout.LEADING));
 
         fieldP.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -140,19 +141,14 @@ public class PIDControlPanel extends JPanel {
                 3, 3,  //initX, initY
                 3, 3); //xPad, yPad
 
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(getFilterPanel());
+        panel.add(new SystemControlPanel());
 
-        JPanel wrapper1 = new JPanel();
-        JPanel wrapper2 = new JPanel();
-        wrapper1.setLayout(new FlowLayout(0, 0, FlowLayout.LEFT));
-        wrapper2.setLayout(new FlowLayout(0, 0, FlowLayout.TRAILING));
-
-        wrapper1.add(factors);
-        wrapper1.add(getFilterPanel());
-
-        this.add(wrapper1);
-        this.add(wrapper2);
-//        this.add(factors);
-//        this.add(getFilterPanel());
+        this.add(factors);
+        this.add(panel);
+        this.add(new HeatSourceControlPanel());
 
         Util.addMouseWheelListener(fieldP, "setKp", double.class, 1);
         Util.addMouseWheelListener(fieldI, "setKi", double.class, 0.01);
@@ -169,7 +165,7 @@ public class PIDControlPanel extends JPanel {
         JPanel panel = new JPanel(new SpringLayout());
         panel.setBorder(BorderFactory.createTitledBorder("Filter"));
 
-        JLabel labelEnable = new JLabel("High pass filter");
+        JLabel labelEnable = new JLabel("Low pass filter");
         JCheckBox checkBox = new JCheckBox();
         checkBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

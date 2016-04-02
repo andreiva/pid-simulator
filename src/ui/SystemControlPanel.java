@@ -26,8 +26,9 @@ public class SystemControlPanel extends JPanel {
 
     public SystemControlPanel() {
 
-        GridLayout layout = new GridLayout(0, 2);
-        this.setLayout(layout);
+//        GridLayout layout = new GridLayout(0, 2);
+//        this.setLayout(layout);
+        this.setLayout(new FlowLayout(0, 0, FlowLayout.LEADING));
 
         fieldPower.addMouseWheelListener(new MouseWheelListener() {
             @Override

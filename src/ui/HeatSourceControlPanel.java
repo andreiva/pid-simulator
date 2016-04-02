@@ -18,7 +18,7 @@ public class HeatSourceControlPanel extends JPanel {
 
     public HeatSourceControlPanel() {
 
-        BoxLayout layout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
+        BoxLayout layout = new BoxLayout(this, BoxLayout.X_AXIS);
         this.setLayout(layout);
 
         JButton buttonAdd25 = new JButton("+25");
@@ -53,12 +53,19 @@ public class HeatSourceControlPanel extends JPanel {
             }
         });
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.add(buttonAdd25);
+        buttonPanel.add(buttonAdd10);
+        buttonPanel.add(buttonMinus10);
+        buttonPanel.add(buttonMinus25);
 
         this.add(getFilterPanel());
-        this.add(buttonAdd25);
-        this.add(buttonAdd10);
-        this.add(buttonMinus10);
-        this.add(buttonMinus25);
+        this.add(buttonPanel);
+//        this.add(buttonAdd25);
+//        this.add(buttonAdd10);
+//        this.add(buttonMinus10);
+//        this.add(buttonMinus25);
     }
 
 
@@ -86,7 +93,7 @@ public class HeatSourceControlPanel extends JPanel {
         });
 
         sliderMagnitude.setMajorTickSpacing(10);
-        sliderMagnitude.setMinorTickSpacing(1);
+//        sliderMagnitude.setMinorTickSpacing(1);
         sliderMagnitude.setPaintTicks(true);
         sliderMagnitude.setPaintLabels(true);
 
@@ -100,7 +107,7 @@ public class HeatSourceControlPanel extends JPanel {
         });
 
         sliderProbability.setMajorTickSpacing(10);
-        sliderProbability.setMinorTickSpacing(1);
+//        sliderProbability.setMinorTickSpacing(1);
         sliderProbability.setPaintTicks(true);
         sliderProbability.setPaintLabels(true);
 

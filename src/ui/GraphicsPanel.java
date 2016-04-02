@@ -33,10 +33,8 @@ public class GraphicsPanel extends JPanel implements Runnable {
         pidController = controller.getPidController();
 
         Dimension d = controller.getScreenSize();
-        //imension d = this.getPreferredSize();
         w = d.width;
         h = d.height;
-
 
         this.setSize(new Dimension(w, h / 2));
         X = this.getWidth() / 2;
@@ -78,6 +76,12 @@ public class GraphicsPanel extends JPanel implements Runnable {
         g.setColor(Color.green);
         g.drawLine(step-1, Y + (int)pidController.getOld(), step, Y + (int)pidController.getValue());
 
+//        if(step % 50 == 0) {
+//
+//            g.setColor(Color.green);
+//            g.drawLine(step-1, Y + (int)pidController.getOld(), step + 50, Y + (int)pidController.getValue());
+//
+//        }
 
         g.setColor(Color.black);
         g.fillRect(0, 0, 500, 180);
