@@ -41,9 +41,6 @@ public class MainFrame extends JFrame {
         Dimension settings = new Dimension(Controller.getInstance().getScreenSize().width,
                 Controller.getInstance().getScreenSize().height / 3 - 20);
 
-        System.out.println("Dmension "+ graph);
-        System.out.println("Dmension "+ settings);
-
         GridLayout gridLayout = new GridLayout(2, 0);
         frame.getContentPane().setLayout(gridLayout);
 

@@ -14,11 +14,11 @@ public class Util {
 
     private static DecimalFormat df = new DecimalFormat("####0.00");
 
-    public static void addMouseWheelListener(JTextField field, String name, Class type, double step) {
+    public static void addMouseWheelListener(final JTextField field, String name, final Class type, final double step) {
 
         try {
             Class<?> c = Class.forName("pid.MyPID");
-            Method setter = c.getDeclaredMethod(name, type);
+            final Method setter = c.getDeclaredMethod(name, type);
 
             field.addMouseWheelListener(new MouseWheelListener() {
                 @Override

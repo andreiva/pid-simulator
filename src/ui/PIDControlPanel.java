@@ -41,10 +41,10 @@ public class PIDControlPanel extends JPanel {
 
     public PIDControlPanel() {
 
+        this.setLayout(new FlowLayout(0, 0, FlowLayout.LEADING));
+
         fieldTime.setEnabled(false);
         fieldLoopTime.setEnabled(false);
-
-        this.setLayout(new FlowLayout(0, 0, FlowLayout.LEADING));
 
         fieldP.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -126,7 +126,12 @@ public class PIDControlPanel extends JPanel {
         panel.add(getFilterPanel());
         panel.add(new SystemControlPanel());
 
-        this.add(factors);
+        JPanel wrapper = new JPanel();
+        wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.PAGE_AXIS));
+        wrapper.add(factors);
+        wrapper.add(new Help());
+
+        this.add(wrapper);
         this.add(panel);
         this.add(new HeatSourceControlPanel());
 
@@ -146,7 +151,7 @@ public class PIDControlPanel extends JPanel {
         panel.setBorder(BorderFactory.createTitledBorder("Filter"));
 
         JLabel labelEnable = new JLabel("Low pass filter");
-        JCheckBox checkBox = new JCheckBox();
+        final JCheckBox checkBox = new JCheckBox();
         checkBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.getPidController().setEnableFilter(checkBox.getModel().isSelected());
@@ -154,7 +159,7 @@ public class PIDControlPanel extends JPanel {
         });
 
         JLabel labelCutoff = new JLabel("Cutoff Hz");
-        JTextField fieldCutoff = new JTextField(controller.getPidController().getFilter().getCutoff() +"", 4);
+        final JTextField fieldCutoff = new JTextField(controller.getPidController().getFilter().getCutoff() +"", 4);
         fieldCutoff.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 double d = Double.parseDouble(fieldCutoff.getText());

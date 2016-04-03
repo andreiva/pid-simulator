@@ -62,13 +62,8 @@ public class HeatSourceControlPanel extends JPanel {
 
         this.add(getFilterPanel());
         this.add(buttonPanel);
-//        this.add(buttonAdd25);
-//        this.add(buttonAdd10);
-//        this.add(buttonMinus10);
-//        this.add(buttonMinus25);
+
     }
-
-
 
     private JPanel getFilterPanel() {
 
@@ -76,7 +71,7 @@ public class HeatSourceControlPanel extends JPanel {
         panel.setBorder(BorderFactory.createTitledBorder("Noise"));
 
         JLabel labelEnable = new JLabel("Noise");
-        JCheckBox checkBox = new JCheckBox();
+        final JCheckBox checkBox = new JCheckBox();
         checkBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controller.getSource().getNoise().setEnabled(checkBox.getModel().isSelected());
@@ -84,7 +79,7 @@ public class HeatSourceControlPanel extends JPanel {
         });
 
         JLabel labelMagnitude = new JLabel("Magnitude");
-        JSlider sliderMagnitude = new JSlider(JSlider.HORIZONTAL, 0, 100, controller.getSource().getNoise().getMagnitude());
+        final JSlider sliderMagnitude = new JSlider(JSlider.HORIZONTAL, 0, 100, controller.getSource().getNoise().getMagnitude());
         sliderMagnitude.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent event) {
                 int i = sliderMagnitude.getValue();
@@ -98,7 +93,7 @@ public class HeatSourceControlPanel extends JPanel {
         sliderMagnitude.setPaintLabels(true);
 
         JLabel labelProbability = new JLabel("Probability");
-        JSlider sliderProbability = new JSlider(JSlider.HORIZONTAL, 0, 100, controller.getSource().getNoise().getProbability());
+        final JSlider sliderProbability = new JSlider(JSlider.HORIZONTAL, 0, 100, controller.getSource().getNoise().getProbability());
         sliderProbability.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent event) {
                 int i = sliderProbability.getValue();

@@ -48,19 +48,6 @@ public class GraphicsPanel extends JPanel implements Runnable {
 
     }
 
-    private void drawAxis() {
-
-        Graphics g = this.getGraphics();
-
-        g.setColor(Color.blue);
-        g.drawLine(0, Y, w, Y); // X-axis
-        g.drawLine(X, 0, X, h); // Y-axis
-
-        // Set point
-        g.setColor(Color.yellow);
-        g.drawLine(0, Y - (int)pidController.getSetPoint(), w, Y - (int)pidController.getSetPoint());
-    }
-
     public void paint(Graphics g)
     {
         super.paintComponent(g);
@@ -112,31 +99,31 @@ public class GraphicsPanel extends JPanel implements Runnable {
             dbg.setColor(Color.black);
             dbg.fillRect(0, 0, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 
-            g2.setColor(Color.blue);
+            g2.setColor(Constants.AXIS_COLOR);
             g2.drawLine(0, Y, w, Y); // X-axis
             g2.drawLine(X, 0, X, h); // Y-axis
 
             for(int i = 1; i < 30; i++) {
-                g2.drawLine(X-5, Y+i*20, X+5, Y+i*20);
-                g2.drawString(i*20+ "", X+7, Y+i*20+5);
-
                 g2.drawLine(X-5, Y-i*20, X+5, Y-i*20);
                 g2.drawString(i*20+ "", X+7, Y-i*20+5);
+
+                g2.drawLine(X-5, Y+i*20, X+5, Y+i*20);
+                g2.drawString("-"+ i*20, X-50, Y+i*20+5);
             }
 
             // Set point
-            g2.setColor(Color.yellow);
+            g2.setColor(Constants.SETPOINT_COLOR);
             g2.drawLine(0, Y - (int)pidController.getSetPoint(), w, Y - (int)pidController.getSetPoint());
         }
 
         step++;
 
         // temperature
-        g2.setColor(Color.red);
+        g2.setColor(Constants.TEMPERATURE_COLOR);
         g2.drawLine(step-1, Y - (int)source.getOld(), step, Y - (int)source.getValue());
 
         // power
-        g2.setColor(Color.green);
+        g2.setColor(Constants.POWER_COLOR);
         g2.drawLine(step-1, Y + (int)pidController.getOld(), step, Y + (int)pidController.getValue());
 
 

@@ -11,8 +11,6 @@ import java.util.LinkedList;
  * When you switch on ceiling fan, air flow doesn't reach you immediately
  * Heating an iron rod from one end, and measuring temperature from the other
  *
- *
- *
  */
 public class ConductionDelay implements Delay {
 

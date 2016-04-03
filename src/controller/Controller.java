@@ -10,7 +10,6 @@ import java.awt.*;
 
 public class Controller {
 
-    private MainFrame mainFrame;
     private Dimension screenSize;
     private static Controller instance = null;
     private Source source;

@@ -66,8 +66,8 @@ public class SystemControlPanel extends JPanel {
         });
         fieldSystem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//                int i = Integer.parseInt(fieldPower.getText());
-//                controller.getActuatorDelay().resize(i);
+                int i = Integer.parseInt(fieldSystem.getText());
+                controller.getSystemDelay().resize(i);
             }
         });
 
