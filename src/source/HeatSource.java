@@ -9,7 +9,7 @@ public class HeatSource implements Source {
     private int intervall = 50;
     private double currentValue = 100;
     private double old = 20;
-    private double delta = 0.5;
+    private double delta = 0.2;
     private Noise noise;
 
     public HeatSource() {

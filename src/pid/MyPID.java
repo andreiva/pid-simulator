@@ -15,7 +15,7 @@ public class MyPID implements PIDController {
     private double currentValue = 100;
     private double measuredValue = 50;
     private double old = 60;
-    private double setPoint = 50;
+    private double setPoint = 40;
     private double error = 0;
     private double integratedValue = 0;
     private double derivatedValue = 0;
