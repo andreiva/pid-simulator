@@ -26,22 +26,24 @@ public class Util {
 
                     double d = 0;
                     int i = 0;
+                    String text = field.getText().replace(",", ".");
+
                     if(type == double.class) {
-                        d = Double.parseDouble(field.getText());
+                        d = Double.parseDouble(text);
                     }
                     else if(type == int.class) {
-                        i = Integer.parseInt(field.getText());
+                        i = Integer.parseInt(text);
                     }
 
                     if (e.getWheelRotation() < 0) {
                         try {
                             if(type == double.class) {
                                 setter.invoke (Controller.getInstance().getInstance().getPidController(), d + step);
-                                field.setText(df.format(d + step));
+                                field.setText(df.format(d + step).replace(",", "."));
                             }
                             else if(type == int.class) {
                                 setter.invoke (Controller.getInstance().getInstance().getPidController(), i + step);
-                                field.setText(df.format(i + step));
+                                field.setText(df.format(i + step).replace(",", "."));
                             }
                         } catch (IllegalAccessException e1) {
                             e1.printStackTrace();
