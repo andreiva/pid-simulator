@@ -150,10 +150,10 @@ public class GraphicsPanel extends JPanel implements Runnable {
         while(running) {
             try {
 
-                Double power = pidController.getValue() * 0.001;
+                Double power = pidController.getValue() * 0.005;
                 controller.getActuatorDelay().put(power);
 
-                source.add(pidController.getValue() * 0.001);
+                source.add(pidController.getValue() * 0.005);
                 source.add(controller.getActuatorDelay().get());
                 controller.getSystemDelay().put(source.getValue());
 

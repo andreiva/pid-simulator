@@ -22,7 +22,7 @@ public class MyPID implements PIDController {
 
     private double kp = 1;
     private double ki = 0.1;
-    private double kd = 0.8;
+    private double kd = 0.3;
 
     private int iTime = 20;
     private int step = 0;
