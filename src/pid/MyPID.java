@@ -65,9 +65,9 @@ public class MyPID implements PIDController {
 
     public double derivate() {
         if(step > 1)
-            derivatedValue = currentValue / samples.get(step - 1).doubleValue();
+            derivatedValue = currentValue - samples.get(step - 1).doubleValue();
         else
-            derivatedValue = currentValue / samples.get(iTime-1).doubleValue();
+            derivatedValue = currentValue - samples.get(iTime-1).doubleValue();
 
         return derivatedValue;
     }
